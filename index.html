@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Infinite Dash Beta</title>
+<style>
+body{font-family:Arial,sans-serif;background:#0b1020;color:#f5f7ff;text-align:center;padding:60px 20px}
+main{max-width:650px;margin:auto;background:#141e33;padding:35px;border-radius:18px}
+h1{font-size:3em}span{color:#5ce1e6}
+input,button{padding:12px;margin:8px;border-radius:7px;border:0}
+button{background:#5ce1e6;font-weight:bold;cursor:pointer}
+a{color:#5ce1e6}p{line-height:1.7;color:#bdc8dd}
+</style>
+</head>
+<body>
+<main>
+<h1>INFINITE <span>DASH</span></h1>
+<p>Welcome to the Infinite Dash Windows Beta!</p>
+<p>Enter the beta password to continue.</p>
+<form id="login">
+<input id="password" type="password" placeholder="Beta password" required>
+<button type="submit">Continue</button>
+</form>
+<p id="message"></p>
+<div id="download" hidden>
+<p>Password accepted.</p>
+<a href="/releases/latest">Open the latest beta release</a>
+</div>
+<p>Read the release notes before installing.</p>
+</main>
+<script>
+document.getElementById('login').addEventListener('submit',function(e){
+ e.preventDefault();
+ if(document.getElementById('password').value==='InfiniteDash'){
+   document.getElementById('download').hidden=false;
+   document.getElementById('message').textContent='Access granted!';
+ }else{
+   document.getElementById('message').textContent='Incorrect password.';
+ }
+});
+</script>
+</body>
+</html>
