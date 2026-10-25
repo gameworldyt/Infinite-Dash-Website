@@ -1,44 +1,453 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Infinite Dash Beta</title>
-<style>
-body{font-family:Arial,sans-serif;background:#0b1020;color:#f5f7ff;text-align:center;padding:60px 20px}
-main{max-width:650px;margin:auto;background:#141e33;padding:35px;border-radius:18px}
-h1{font-size:3em}span{color:#5ce1e6}
-input,button{padding:12px;margin:8px;border-radius:7px;border:0}
-button{background:#5ce1e6;font-weight:bold;cursor:pointer}
-a{color:#5ce1e6}p{line-height:1.7;color:#bdc8dd}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b14">
+  <meta name="description" content="Discover Infinite Dash. Explore gameplay screenshots and get the latest beta release.">
+  <title>Infinite Dash — Official Beta</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080b14;
+      --panel: #101625;
+      --text: #f4f7ff;
+      --muted: #a5b0c7;
+      --blue: #58a6ff;
+      --cyan: #69e5ff;
+      --border: #26334b;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    .container {
+      width: min(1120px, 90%);
+      margin-inline: auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(8, 11, 20, .92);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+    }
+
+    nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      font-size: 1.2rem;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      text-decoration: none;
+    }
+
+    .brand span { color: var(--cyan); }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: .92rem;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover { color: white; }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 100px 0 84px;
+      background:
+        radial-gradient(ellipse at 75% 10%, #123c6c80, transparent 42%),
+        radial-gradient(ellipse at 10% 70%, #143c5c55, transparent 45%);
+    }
+
+    .eyebrow {
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: .8rem;
+      font-weight: 800;
+    }
+
+    h1 {
+      max-width: 800px;
+      margin: 12px 0;
+      font-size: clamp(3rem, 9vw, 6.6rem);
+      line-height: .98;
+      letter-spacing: -4px;
+    }
+
+    h1 span {
+      color: var(--cyan);
+      text-shadow: 0 0 38px #58a6ff44;
+    }
+
+    .hero p {
+      max-width: 650px;
+      color: var(--muted);
+      font-size: 1.15rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 22px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .2s, border-color .2s;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      border-color: var(--cyan);
+    }
+
+    .button.primary {
+      color: #06101c;
+      background: linear-gradient(110deg, var(--cyan), var(--blue));
+      border-color: transparent;
+    }
+
+    .hero-image {
+      margin-top: 54px;
+      padding: 8px;
+      background: linear-gradient(135deg, #69e5ff77, #58a6ff11);
+      border: 1px solid #58a6ff55;
+      border-radius: 18px;
+      box-shadow: 0 24px 80px #0008;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-height: 540px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: #0b1020;
+    }
+
+    section { padding: 76px 0; }
+
+    .section-heading {
+      margin-bottom: 28px;
+    }
+
+    .section-heading h2 {
+      margin: 6px 0;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.15;
+    }
+
+    .section-heading p,
+    .muted { color: var(--muted); }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .shot, .panel {
+      overflow: hidden;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    .shot img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: contain;
+      background: #05070c;
+    }
+
+    .shot figcaption {
+      padding: 14px 16px;
+      color: var(--muted);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .panel { padding: 24px; }
+
+    .panel h3 { margin-top: 0; }
+
+    .download-section {
+      background: linear-gradient(120deg, #102039, #0b1220);
+      border-block: 1px solid var(--border);
+    }
+
+    .download-card {
+      max-width: 760px;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .download-card .actions { justify-content: center; }
+
+    .faq {
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq h3 { margin-bottom: 4px; }
+    .faq p { margin-top: 4px; color: var(--muted); }
+
+    footer {
+      padding: 28px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--cyan);
+      outline-offset: 4px;
+    }
+
+    @media (max-width: 700px) {
+      nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 16px 0;
+        gap: 10px;
+      }
+
+      .nav-links { gap: 14px; }
+      .hero { padding: 66px 0; }
+      h1 { letter-spacing: -2px; }
+      .gallery, .about-grid { grid-template-columns: 1fr; }
+      section { padding: 54px 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
 </head>
 <body>
-<main>
-<h1>INFINITE <span>DASH</span></h1>
-<p>Welcome to the Infinite Dash Windows Beta!</p>
-<p>Enter the beta password to continue.</p>
-<form id="login">
-<input id="password" type="password" placeholder="Beta password" required>
-<button type="submit">Continue</button>
-</form>
-<p id="message"></p>
-<div id="download" hidden>
-<p>Password accepted.</p>
-<a href="/releases/latest">Open the latest beta release</a>
-</div>
-<p>Read the release notes before installing.</p>
-</main>
-<script>
-document.getElementById('login').addEventListener('submit',function(e){
- e.preventDefault();
- if(document.getElementById('password').value==='InfiniteDash'){
-   document.getElementById('download').hidden=false;
-   document.getElementById('message').textContent='Access granted!';
- }else{
-   document.getElementById('message').textContent='Incorrect password.';
- }
-});
-</script>
+  <header>
+    <nav class="container" aria-label="Main navigation">
+      <a class="brand" href="#home">INFINITE<span>DASH</span></a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#screenshots">Screenshots</a>
+        <a href="#download">Download</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="eyebrow">The official beta website</div>
+        <h1>INFINITE<br><span>DASH.</span></h1>
+        <p>
+          Welcome to Infinite Dash. Discover the game, explore the screenshots,
+          and check out the latest beta release.
+        </p>
+        <div class="actions">
+          <a class="button primary"
+             href="https://github.com/gameworldyt/Infinite-Dash-Website/releases/latest">
+            Download Beta ↗
+          </a>
+          <a class="button" href="#screenshots">Explore Gameplay</a>
+        </div>
+
+        <div class="hero-image">
+          <img src="P1.png" alt="Infinite Dash gameplay screenshot">
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Get to know the game</div>
+          <h2>Welcome to Infinite Dash</h2>
+          <p>
+            This is the beta home for Infinite Dash. Explore the available
+            gameplay images and follow future releases here.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <article class="panel">
+            <h3>🎮 The Game</h3>
+            <p class="muted">
+              Get a first look at Infinite Dash through the screenshots below.
+            </p>
+          </article>
+          <article class="panel">
+            <h3>🚀 Beta Releases</h3>
+            <p class="muted">
+              Find the latest available release and installer on GitHub.
+            </p>
+          </article>
+          <article class="panel">
+            <h3>🛠️ Under Development</h3>
+            <p class="muted">
+              This is a beta version. Details and updates can change as
+              development continues.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="screenshots">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Take a closer look</div>
+          <h2>Gameplay Showcase</h2>
+          <p>See Infinite Dash in action.</p>
+        </div>
+
+        <div class="gallery">
+          <figure class="shot">
+            <img src="P1.png" alt="Infinite Dash gameplay screenshot one"
+                 loading="lazy">
+            <figcaption>Infinite Dash — Screenshot 01</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="P2.png" alt="Infinite Dash gameplay screenshot two"
+                 loading="lazy">
+            <figcaption>Infinite Dash — Screenshot 02</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="download-section" id="download">
+      <div class="container download-card">
+        <div class="eyebrow">Try the beta</div>
+        <h2>Ready for Infinite Dash?</h2>
+        <p class="muted">
+          Visit the latest release page to find the available Windows installer
+          and the release notes.
+        </p>
+        <div class="actions">
+          <a class="button primary"
+             href="https://github.com/gameworldyt/Infinite-Dash-Website/releases/latest">
+            Get the Beta
+          </a>
+          <a class="button"
+             href="https://github.com/gameworldyt/Infinite-Dash-Website/releases">
+            All Releases
+          </a>
+        </div>
+        <p class="muted">
+          Follow the setup wizard instructions after downloading.
+          Only install software you trust.
+        </p>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Need help?</div>
+          <h2>Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq">
+          <h3>Where can I download Infinite Dash?</h3>
+          <p>
+            Use the Download Beta button to visit the project's latest GitHub
+            Release.
+          </p>
+        </div>
+        <div class="faq">
+          <h3>How do I install it?</h3>
+          <p>
+            Download the installer from the release page and follow the
+            setup wizard. Available steps may depend on the release.
+          </p>
+        </div>
+        <div class="faq">
+          <h3>Is this the final version?</h3>
+          <p>
+            No. This website currently presents Infinite Dash as a beta.
+            Check the release notes for the latest version details.
+          </p>
+        </div>
+        <div class="faq">
+          <h3>Where can I find updates?</h3>
+          <p>
+            Check the GitHub Releases page for new versions and their notes.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© <span id="year"></span> Infinite Dash</span>
+      <a href="https://github.com/gameworldyt/Infinite-Dash-Website">
+        GitHub Repository
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
 </body>
 </html>
